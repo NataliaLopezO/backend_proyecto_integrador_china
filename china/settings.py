@@ -84,7 +84,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'ozhssddv',
         'USER' : 'ozhssddv',
-        'PASSWORD' : 'QScUEHfeD8VkziJJgcGDA5X7yIeXfvcC',
+        'PASSWORD' : 'yVa4p9oMScFVogZJAZiRqeRnsdni2Ss5',
         'HOST' : 'snuffleupagus.db.elephantsql.com',
         'DATABASE_PORT' : '5432',
 }
