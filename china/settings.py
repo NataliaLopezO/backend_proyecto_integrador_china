@@ -82,7 +82,7 @@ WSGI_APPLICATION = 'china.wsgi.application'
 DATABASES = {
    'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'china',
+        'NAME': 'ozhssddv',
         'USER' : 'ozhssddv',
         'PASSWORD' : 'QScUEHfeD8VkziJJgcGDA5X7yIeXfvcC',
         'HOST' : 'snuffleupagus.db.elephantsql.com',
