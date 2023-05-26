@@ -33,7 +33,7 @@ class CustomUser(AbstractUser):
     profile_picture = models.ImageField(upload_to='profile_pictures/', default="https://cdn-icons-png.flaticon.com/512/105/105544.png", max_length=500)
     
     total_quiz = models.IntegerField(default=0)
-    total_categorias = models.CharField(default=' ')
+    total_categorias = models.CharField(default=' ', max_length=50)
 
 
     objects = MyUserManager()
