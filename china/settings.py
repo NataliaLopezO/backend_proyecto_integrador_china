@@ -87,7 +87,7 @@ DATABASES = {
         'PASSWORD' : 'yVa4p9oMScFVogZJAZiRqeRnsdni2Ss5',
         'HOST' : 'snuffleupagus.db.elephantsql.com',
         'DATABASE_PORT' : '5432',
-}
+    }
 }
 
 AUTH_USER_MODEL = 'finding_china.CustomUser'
