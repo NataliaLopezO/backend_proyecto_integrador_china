@@ -82,10 +82,10 @@ WSGI_APPLICATION = 'china.wsgi.application'
 DATABASES = {
    'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'ozhssddv',
-        'USER' : 'ozhssddv',
-        'PASSWORD' : 'yVa4p9oMScFVogZJAZiRqeRnsdni2Ss5',
-        'HOST' : 'snuffleupagus.db.elephantsql.com',
+        'NAME': 'wyvmxquf',
+        'USER' : 'wyvmxquf',
+        'PASSWORD' : 'zLoFJdntOIKhKbPTMA99bHn8H8Vfx9D_',
+        'HOST' : 'hansken.db.elephantsql.com',
         'DATABASE_PORT' : '5432',
     }
 }
