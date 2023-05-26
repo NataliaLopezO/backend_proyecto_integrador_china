@@ -32,7 +32,7 @@ class CustomUser(AbstractUser):
         'unique': 'Ya hay un usuario registrado con este email'})
     
     total_quiz = models.IntegerField(default=0)
-    total_categorias = models.CharField(default=' ')
+    total_categorias = models.CharField(default=' ', max_length=50)
 
 
     objects = MyUserManager()
