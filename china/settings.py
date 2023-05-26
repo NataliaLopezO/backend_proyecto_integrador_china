@@ -85,8 +85,8 @@ DATABASES = {
         'NAME': 'wyvmxquf',
         'USER' : 'wyvmxquf',
         'PASSWORD' : 'zLoFJdntOIKhKbPTMA99bHn8H8Vfx9D_',
-        'HOST' : 'hansken',
-        'DATABASE_PORT' : '5432',
+        'HOST' : 'hansken.db.elephantsql.com',
+        'PORT' : '5432',
     }
 }
 
