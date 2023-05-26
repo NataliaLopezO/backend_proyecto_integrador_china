@@ -71,8 +71,31 @@ class Logout(APIView):
 class UpdateProfile(APIView):
     def post(self, request):
         username= request.data.get('username')
+        profile= request.data.get('foto')
+        
+        try:
+            # Buscar al usuario por nombre de usuario en la base de datos
+            user = CustomUser.objects.get(username=username)
+            token_exists = Token.objects.filter(user=user).exists()
+
+            if token_exists:
+                user.profile_picture=profile
+                print(user.profile_picture)
+                user.save()
+                return Response(status=status.HTTP_200_OK)
+            else:
+                # El token no está asociado al usuario
+                return Response(status=status.HTTP_404_NOT_FOUND)
+
+
+        except CustomUser.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        
+
+class UpdateContraseña(APIView):
+    def post(self, request):
+        username= request.data.get('username')
         password= request.data.get('password')
-        #photo=
         
         try:
             # Buscar al usuario por nombre de usuario en la base de datos
@@ -81,18 +104,11 @@ class UpdateProfile(APIView):
             token_exists = Token.objects.filter(user=user).exists()
 
             if token_exists:
-                if password:
-                    user.set_password(password)
-                    print("Nueva contraseña")
-                    print(password)
-                
-             #   if profile:
-             #       user.profilePic= profile
-            
-
+                user.set_password(password)
+                print("Nueva contraseña")
+                print(password)
                 user.save()
                 return Response(status=status.HTTP_200_OK)
-
             else:
                 # El token no está asociado al usuario
                 return Response(status=status.HTTP_404_NOT_FOUND)
@@ -126,6 +142,7 @@ class LoginView(APIView):
                         'id': user.id,
                         'username': user.username,
                         'email': user.email,
+                        'profile_picture': user.profile_picture.url if user.profile_picture else None,
                         # Agrega más campos de información del usuario si es necesario
                     }
                   
@@ -143,9 +160,27 @@ class RegisterUserView(APIView):
 
     def post(self, request):
         serializer = UsuarioSerializer(data=request.data)
-        if serializer.is_valid():
-            user = CustomUser.objects.create_superuser(**serializer.validated_data)
-            user.is_staff = True
-            user.is_superuser = True
-            return Response({'success': True, 'message': 'Usuario registrado exitosamente'})
-        return Response(serializer.errors, status=400)
+        foto=  request.data.get("foto") 
+        username= request.data.get('nombre')
+        email= request.data.get('email1')
+        password= request.data.get('contraseña')
+
+        try:
+
+
+            print('Entró')
+            print(foto)
+            superuser = CustomUser.objects.create_superuser(
+                    username=username,
+                    password=password,
+                    email=email,
+                    profile_picture=foto
+        )
+        
+                #user = CustomUser.objects.create_superuser(**serializer.validated_data)
+            superuser.is_staff = True
+            superuser.is_superuser = True
+         
+            return Response(status=status.HTTP_200_OK)
+        except:
+             return Response(status=status.HTTP_404_NOT_FOUND)
