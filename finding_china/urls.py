@@ -21,7 +21,7 @@ urlpatterns = [
     path('login_view/', LoginView.as_view(), name='login_view'),
     path('register/', RegisterUserView.as_view(), name='register'),
     path('editProfile/' ,UpdateProfile.as_view(), name='editProfile'),
-     path('update_contra/',UpdateContraseña.as_view(), name='update_contra'),
+    path('update_contra/',UpdateContraseña.as_view(), name='update_contra'),
 
 
 ]
