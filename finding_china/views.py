@@ -425,6 +425,11 @@ class RegisterUserView(APIView):
         password= request.data.get('contraseña')
 
         try:
+            try:
+                validate_email(email)
+            except ValidationError:
+                return Response(status=status.HTTP_404_NOT_FOUND)
+                 
             print('Entró')
             print(foto)
             superuser = CustomUser.objects.create_superuser(
