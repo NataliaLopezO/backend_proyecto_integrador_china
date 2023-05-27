@@ -22,6 +22,8 @@ from rest_framework.permissions import AllowAny
 from .serializer import UsuarioSerializer
 from rest_framework import viewsets
 
+from django.core.validators import validate_email
+from django.core.exceptions import ValidationError
 
 from .models import CustomUser
 
@@ -423,6 +425,10 @@ class RegisterUserView(APIView):
         password= request.data.get('contraseña')
 
         try:
+            try:
+                validate_email(email)
+            except ValidationError:
+                return Response(status=status.HTTP_404_NOT_FOUND)
 
 
             print('Entró')
