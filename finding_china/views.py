@@ -27,7 +27,6 @@ from django.core.exceptions import ValidationError
 
 from .models import CustomUser
 
-#JWT y  O2 de validacion de token 
 
 """
     Vista de lista de usuarios que proporciona funcionalidades CRUD para el modelo CustomUser.
@@ -249,7 +248,6 @@ class UpdateProfile(APIView):
 
             if token_exists:
                 user.profile_picture=profile
-                print(user.profile_picture)
                 user.save()
                 return Response(status=status.HTTP_200_OK)
             else:
@@ -304,8 +302,6 @@ class UpdateContraseña(APIView):
 
             if token_exists:
                 user.set_password(password)
-                print("Nueva contraseña")
-                print(password)
                 user.save()
                 return Response(status=status.HTTP_200_OK)
             else:
@@ -430,8 +426,7 @@ class RegisterUserView(APIView):
             except ValidationError:
                 return Response(status=status.HTTP_404_NOT_FOUND)
                  
-            print('Entró')
-            print(foto)
+
             superuser = CustomUser.objects.create_superuser(
                     username=username,
                     password=password,
