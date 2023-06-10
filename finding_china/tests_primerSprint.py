@@ -9,6 +9,8 @@ from finding_china.views import RegisterUserView
 from rest_framework.authtoken.models import Token
 from .serializer import UsuarioSerializer
 
+""" PRUEBAS UNITARIAS DEL PRIMER SPRINT """
+
 """
    Clase RegisterUserViewTestCase
 
@@ -136,80 +138,3 @@ class RegisterUserViewTestCase(TestCase):
 
         # Verificar que el token de acceso del usuario se haya eliminado
         self.assertFalse(Token.objects.filter(user=self.registered_user).exists())
-
-        """Método de prueba test_update_password:
-
-           Objetivo: Verificar que un usuario pueda actualizar su contraseña correctamente mediante una solicitud POST a la vista de actualización de contraseña.
-           Método: test_update_password()
-           Resultado esperado: Se espera que la respuesta tenga un código de estado HTTP 200 (OK), indicando que la actualización de la contraseña fue exitosa. 
-           Además, se espera que la contraseña del usuario se haya actualizado correctamente en la base de datos."""
-
-    def test_update_password(self):
-        # Iniciar sesión para obtener un token de acceso válido
-        login_url = reverse('default:login_view')
-        login_data = {
-            'username': self.registered_user.username,
-            'password': 'password',
-        }
-        login_response = self.client.post(login_url, login_data, format='json')
-        self.assertEqual(login_response.status_code, 200)
-        token = login_response.data['token']
-
-        # Configurar el encabezado de autenticación con el token
-        self.client.credentials(HTTP_AUTHORIZATION=f'Token {token}')
-
-        # Llamar a la vista de actualizar contraseña
-        update_password_url = reverse('default:update_contra')
-        new_password = 'new_password'
-        update_password_data = {
-            'username': self.registered_user.username,
-            'password': new_password,
-        }
-        update_password_response = self.client.post(update_password_url, update_password_data, format='json')
-        self.assertEqual(update_password_response.status_code, 200)
-
-        # Verificar que la contraseña del usuario se haya actualizado correctamente
-        updated_user = CustomUser.objects.get(username=self.registered_user.username)
-        self.assertTrue(updated_user.check_password(new_password))
-
-        """Método de prueba test_update_profile:
-
-           Objetivo: Verificar que un usuario pueda actualizar su foto de perfil correctamente mediante una solicitud POST a la vista de actualización de foto de perfil.
-           Método: test_update_profile()
-           Resultado esperado: Se espera que la respuesta tenga un código de estado HTTP 200 (OK), indicando que la actualización de la contraseña fue exitosa. 
-           Además, se espera que la foto de perfil nueva coincida con la foto que existe en la base de datos."""
-
-    def test_update_profile(self):
-        # Iniciar sesión para obtener un token de acceso válido
-        login_url = reverse('default:login_view')
-        login_data = {
-            'username': self.registered_user.username,
-            'password': 'password',
-        }
-        login_response = self.client.post(login_url, login_data, format='json')
-        self.assertEqual(login_response.status_code, 200)
-        token = login_response.data['token']
-
-        # Configurar el encabezado de autenticación con el token
-        self.client.credentials(HTTP_AUTHORIZATION=f'Token {token}')
-
-        # Llamar a la vista de actualizar foto de perfil
-        update_profile_url = reverse('default:editProfile')
-        #Se envia una nueva dirección de foto de perfil que contiene una imagen
-        new_profile = 'https://img.freepik.com/foto-gratis/elemento-artesania-mano-papel-corazon-rojo_53876-128923.jpg?w=2000'
-        update_profile_data = {
-            'username': self.registered_user.username,
-            'foto': new_profile,
-        }
-        update_profile_response = self.client.post(update_profile_url, update_profile_data, format='json')
-        self.assertEqual(update_profile_response.status_code, 200)
-
-        # Verificar que la imagen del usuario se haya actualizado correctamente
-        updated_user = CustomUser.objects.get(username=self.registered_user.username)
-        self.assertEqual(updated_user.profile_picture, new_profile)
-
-
-
-
-
-
