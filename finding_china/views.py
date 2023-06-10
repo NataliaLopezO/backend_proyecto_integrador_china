@@ -289,7 +289,7 @@ class UpdateContraseña(APIView):
         Retorna:
             - Response: Objeto de respuesta HTTP con estado 200 si la actualización de la contraseña es exitosa.
             - Response: Objeto de respuesta HTTP con estado 404 si no se encuentra el usuario o no se encuentra el token asociado.
-    """
+            - Response: Objeto de respuesta HTTP con estado 400 si la contraseña no cumple con los requisitos plateados"""
     def post(self, request):
         username= request.data.get('username')
         password= request.data.get('password')
@@ -300,7 +300,7 @@ class UpdateContraseña(APIView):
 
             token_exists = Token.objects.filter(user=user).exists()
 
-            if password=='' or password==' ':
+            if password=='' or password==' ' or len(password) < 4:
                 return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
