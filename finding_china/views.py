@@ -300,6 +300,10 @@ class UpdateContraseña(APIView):
 
             token_exists = Token.objects.filter(user=user).exists()
 
+            if password=='' or password==' ':
+                return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
             if token_exists:
                 user.set_password(password)
                 user.save()
