@@ -9,6 +9,7 @@ from .views import UpdateProgreso
 from .views import QuestionListAPIViewAportes
 from .views import QuestionListAPIViewCultura
 from .views import QuestionListAPIViewHistoria
+from .views import getProgreso
 
 from rest_framework.documentation import include_docs_urls
 
@@ -29,5 +30,6 @@ urlpatterns = [
     path('preguntas_aportes/', QuestionListAPIViewAportes.as_view(), name='preguntas_aportes'),
     path('preguntas_cultura/', QuestionListAPIViewCultura.as_view(), name='preguntas_cultura'),
     path('preguntas_historia/', QuestionListAPIViewHistoria.as_view(), name='preguntas_historia'),
+    path('get_progreso/',getProgreso.as_view(), name='get_progreso'),
 
 ]
