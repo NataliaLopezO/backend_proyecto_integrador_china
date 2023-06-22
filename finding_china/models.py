@@ -192,3 +192,17 @@ class CustomUser(AbstractUser):
                 password = '1234'
                 self.set_password(password)
         super().save(*args, **kwargs)
+
+class Question(models.Model):
+
+    OPCION_DEFAULT = {
+        'texto_opcion': "",
+        'es_respuesta_correcta': False
+    }
+
+    pregunta = models.CharField(max_length=200)
+    categoria = models.CharField(max_length=50)
+    opcion1 = models.JSONField(default=OPCION_DEFAULT)
+    opcion2 = models.JSONField(default=OPCION_DEFAULT)
+    opcion3 = models.JSONField(default=OPCION_DEFAULT)
+

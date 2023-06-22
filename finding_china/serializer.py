@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import CustomUser
+from .models import Question
 
 """
     Serializador para convertir objetos del modelo CustomUser en representaciones JSON.
@@ -33,3 +34,8 @@ class UsuarioSerializer(serializers.ModelSerializer):
     class Meta:
         model= CustomUser
         fields= '__all__'
+
+class QuestionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Question
+        fields = '__all__'
