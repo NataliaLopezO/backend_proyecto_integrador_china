@@ -6,7 +6,9 @@ from .views import RegisterUserView
 from .views import UpdateProfile
 from .views import UpdateContraseña
 from .views import UpdateProgreso
-
+from .views import QuestionListAPIViewAportes
+from .views import QuestionListAPIViewCultura
+from .views import QuestionListAPIViewHistoria
 
 from rest_framework.documentation import include_docs_urls
 
@@ -24,6 +26,8 @@ urlpatterns = [
     path('editProfile/' ,UpdateProfile.as_view(), name='editProfile'),
     path('update_contra/',UpdateContraseña.as_view(), name='update_contra'),
     path('progreso_historia1/',UpdateProgreso.as_view(), name='update_progreso'),
-
+    path('preguntas_aportes/', QuestionListAPIViewAportes.as_view(), name='preguntas_aportes'),
+    path('preguntas_cultura/', QuestionListAPIViewCultura.as_view(), name='preguntas_cultura'),
+    path('preguntas_historia/', QuestionListAPIViewHistoria.as_view(), name='preguntas_historia'),
 
 ]

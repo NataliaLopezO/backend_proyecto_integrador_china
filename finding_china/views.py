@@ -18,14 +18,18 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.exceptions import AuthenticationFailed
 from rest_framework.permissions import AllowAny
+from rest_framework import filters
 
 from .serializer import UsuarioSerializer
+from .serializer import QuestionSerializer
 from rest_framework import viewsets
 
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
 
 from .models import CustomUser
+from .models import Question
+
 
 
 """
@@ -501,3 +505,25 @@ class UpdateProgreso(APIView):
        
             
         return Response(status=status.HTTP_401_UNAUTHORIZED)
+
+
+class QuestionListAPIViewAportes(generics.ListAPIView):
+    queryset = Question.objects.filter(categoria='aportes')
+    serializer_class = QuestionSerializer
+    permission_classes = (IsAuthenticated,)
+    authentication_class = (TokenAuthentication,)
+    filter_backends = [filters.OrderingFilter]
+
+class QuestionListAPIViewCultura(generics.ListAPIView):
+    queryset = Question.objects.filter(categoria='cultura')
+    serializer_class = QuestionSerializer
+    permission_classes = (IsAuthenticated,)
+    authentication_class = (TokenAuthentication,)
+    filter_backends = [filters.OrderingFilter]
+
+class QuestionListAPIViewHistoria(generics.ListAPIView):
+    queryset = Question.objects.filter(categoria='historia')
+    serializer_class = QuestionSerializer
+    permission_classes = (IsAuthenticated,)
+    authentication_class = (TokenAuthentication,)
+    filter_backends = [filters.OrderingFilter]
