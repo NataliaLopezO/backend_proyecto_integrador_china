@@ -510,22 +510,16 @@ class UpdateProgreso(APIView):
 class QuestionListAPIViewAportes(generics.ListAPIView):
     queryset = Question.objects.filter(categoria='aportes')
     serializer_class = QuestionSerializer
-    permission_classes = (IsAuthenticated,)
-    authentication_class = (TokenAuthentication,)
     filter_backends = [filters.OrderingFilter]
 
 class QuestionListAPIViewCultura(generics.ListAPIView):
     queryset = Question.objects.filter(categoria='cultura')
     serializer_class = QuestionSerializer
-    permission_classes = (IsAuthenticated,)
-    authentication_class = (TokenAuthentication,)
     filter_backends = [filters.OrderingFilter]
 
 class QuestionListAPIViewHistoria(generics.ListAPIView):
     queryset = Question.objects.filter(categoria='historia')
     serializer_class = QuestionSerializer
-    permission_classes = (IsAuthenticated,)
-    authentication_class = (TokenAuthentication,)
     filter_backends = [filters.OrderingFilter]
 
 
