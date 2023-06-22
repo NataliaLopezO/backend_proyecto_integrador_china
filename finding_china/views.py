@@ -527,3 +527,20 @@ class QuestionListAPIViewHistoria(generics.ListAPIView):
     permission_classes = (IsAuthenticated,)
     authentication_class = (TokenAuthentication,)
     filter_backends = [filters.OrderingFilter]
+
+
+
+class getProgreso(APIView):
+    def post(self, request):
+        # Obtener todos los usuarios de la base de datos
+        username = request.data.get('username')  
+        user = CustomUser.objects.get(username=username)
+
+        progresos = {
+             'historia': user.progreso_historia,    
+             'cultura': user.progreso_cultura,
+             'contribuciones': user.progreso_contribuciones,
+        }
+        
+
+        return Response(progresos, status=status.HTTP_200_OK)
