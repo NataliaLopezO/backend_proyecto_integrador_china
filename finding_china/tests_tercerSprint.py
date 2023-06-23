@@ -12,7 +12,7 @@ from .serializer import UsuarioSerializer
 """ PRUEBAS UNITARIAS DEL SEGUNDO SPRINT """
 
 """
-   Clase SecondUserViewTestCase
+   Clase ThirdUserViewTestCase
 
     Esta clase se utiliza para especificar un conjunto de pruebas unitarias y funcionales de los métodos realizados para el desarrollo.
 
