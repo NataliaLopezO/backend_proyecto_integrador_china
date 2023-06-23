@@ -430,6 +430,9 @@ class RegisterUserView(APIView):
         email= request.data.get('email1')
         password= request.data.get('contraseña')
 
+        if password=='' or password==' ' or len(password) < 4:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
         try:
             try:
                 validate_email(email)
