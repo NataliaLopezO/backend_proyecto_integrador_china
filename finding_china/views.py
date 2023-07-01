@@ -543,6 +543,8 @@ class getProgreso(APIView):
 
         return Response(progresos, status=status.HTTP_200_OK)
 
+#obtener y actualizar aciertos y fallos de el modulo historia 
+
 class get_valores_historia(APIView):
     def post(self, request):
         username = request.data.get('username')  
@@ -555,20 +557,82 @@ class get_valores_historia(APIView):
         return Response(data, status=status.HTTP_200_OK )
 
 class actualizar_valores_historia(APIView):
-    def post(request):
-        username = request.data.get('username')  
+    def post(self, request):
+        username = request.data.get('username')
         user = CustomUser.objects.get(username=username)
         token_exists = Token.objects.filter(user=user).exists()
         if token_exists:
-            if user:
-                aciertos = request.data.get('aciertos_historia')
-                fallos = request.data.get('fallos_historia')
-                if aciertos is not None:
-                    user.aciertos_historia = aciertos
-                if fallos is not None:
-                    user.fallos_historia = fallos
-                user.save()
-                return Response(status=status.HTTP_200_OK)
-            else:
-                return Response(status=status.HTTP_404_NOT_FOUND)
+
+            aciertos = int(request.data.get('aciertos_historia'))
+            fallos = int(request.data.get('fallos_historia'))
+            if aciertos is not None:
+                user.aciertos_historia = aciertos
+            if fallos is not None:
+                user.fallos_historia = fallos
+            user.save()
+            return Response(status=status.HTTP_200_OK)
+
+        return Response(status=status.HTTP_401_UNAUTHORIZED)
+    
+
+#obtener y actualizar aciertos y fallos de el modulo cultura 
+
+class get_valores_cultura(APIView):
+    def post(self, request):
+        username = request.data.get('username')  
+        user = CustomUser.objects.get(username=username)
+        
+        data = {
+                'aciertos_cultura': user.aciertos_cultura,
+                'fallos_cultura': user.fallos_cultura
+        }
+        return Response(data, status=status.HTTP_200_OK )
+
+class actualizar_valores_cultura(APIView):
+    def post(self, request):
+        username = request.data.get('username')
+        user = CustomUser.objects.get(username=username)
+        token_exists = Token.objects.filter(user=user).exists()
+        if token_exists:
+
+            aciertos = int(request.data.get('aciertos_cultura'))
+            fallos = int(request.data.get('fallos_cultura'))
+            if aciertos is not None:
+                user.aciertos_cultura = aciertos
+            if fallos is not None:
+                user.fallos_cultura = fallos
+            user.save()
+            return Response(status=status.HTTP_200_OK)
+
+        return Response(status=status.HTTP_401_UNAUTHORIZED)
+    
+#obtener y actualizar aciertos y fallos de el modulo aportes
+
+class get_valores_contribuciones(APIView):
+    def post(self, request):
+        username = request.data.get('username')  
+        user = CustomUser.objects.get(username=username)
+        
+        data = {
+                'aciertos_contribuciones': user.aciertos_contribuciones,
+                'fallos_contribuciones': user.fallos_contribuciones
+        }
+        return Response(data, status=status.HTTP_200_OK )
+
+class actualizar_valores_contribuciones(APIView):
+    def post(self, request):
+        username = request.data.get('username')
+        user = CustomUser.objects.get(username=username)
+        token_exists = Token.objects.filter(user=user).exists()
+        if token_exists:
+
+            aciertos = int(request.data.get('aciertos_contribuciones'))
+            fallos = int(request.data.get('fallos_contribuciones'))
+            if aciertos is not None:
+                user.aciertos_contribuciones = aciertos
+            if fallos is not None:
+                user.fallos_contribuciones = fallos
+            user.save()
+            return Response(status=status.HTTP_200_OK)
+
         return Response(status=status.HTTP_401_UNAUTHORIZED)

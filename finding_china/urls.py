@@ -12,6 +12,10 @@ from .views import QuestionListAPIViewHistoria
 from .views import getProgreso
 from .views import get_valores_historia
 from .views import actualizar_valores_historia
+from .views import get_valores_cultura
+from .views import actualizar_valores_cultura
+from .views import get_valores_contribuciones
+from .views import actualizar_valores_contribuciones
 
 from rest_framework.documentation import include_docs_urls
 
@@ -35,5 +39,8 @@ urlpatterns = [
     path('get_progreso/',getProgreso.as_view(), name='get_progreso'),
     path('get_valores_historia/', get_valores_historia.as_view(), name='get_valores_historia'),
     path('update_valores_historia/', actualizar_valores_historia.as_view(), name='updata_valores_historia'),
-
+    path('get_valores_cultura/', get_valores_cultura.as_view(), name='get_valores_cultura'),
+    path('update_valores_cultura/', actualizar_valores_cultura.as_view(), name='updata_valores_cultura'),
+    path('get_valores_contribuciones/', get_valores_contribuciones.as_view(), name='get_valores_contribuciones'),
+    path('update_valores_contribuciones/', actualizar_valores_contribuciones.as_view(), name='updata_valores_contribuciones'),
 ]
