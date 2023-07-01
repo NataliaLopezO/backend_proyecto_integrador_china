@@ -19,6 +19,7 @@ from rest_framework.response import Response
 from rest_framework.exceptions import AuthenticationFailed
 from rest_framework.permissions import AllowAny
 from rest_framework import filters
+from rest_framework.decorators import api_view
 
 from .serializer import UsuarioSerializer
 from .serializer import QuestionSerializer
@@ -541,3 +542,33 @@ class getProgreso(APIView):
         
 
         return Response(progresos, status=status.HTTP_200_OK)
+
+class get_valores_historia(APIView):
+    def post(self, request):
+        username = request.data.get('username')  
+        user = CustomUser.objects.get(username=username)
+        
+        data = {
+                'aciertos_historia': user.aciertos_historia,
+                'fallos_historia': user.fallos_historia
+        }
+        return Response(data, status=status.HTTP_200_OK )
+
+class actualizar_valores_historia(APIView):
+    def post(request):
+        username = request.data.get('username')  
+        user = CustomUser.objects.get(username=username)
+        token_exists = Token.objects.filter(user=user).exists()
+        if token_exists:
+            if user:
+                aciertos = request.data.get('aciertos_historia')
+                fallos = request.data.get('fallos_historia')
+                if aciertos is not None:
+                    user.aciertos_historia = aciertos
+                if fallos is not None:
+                    user.fallos_historia = fallos
+                user.save()
+                return Response(status=status.HTTP_200_OK)
+            else:
+                return Response(status=status.HTTP_404_NOT_FOUND)
+        return Response(status=status.HTTP_401_UNAUTHORIZED)

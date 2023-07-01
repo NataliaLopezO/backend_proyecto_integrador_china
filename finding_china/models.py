@@ -150,6 +150,15 @@ class CustomUser(AbstractUser):
     total_quiz = models.IntegerField(default=0)
     total_categorias = models.CharField(default=' ', max_length=50)
 
+    aciertos_historia = models.IntegerField(default=0)
+    fallos_historia = models.IntegerField(default=0)
+
+    aciertos_contribuciones = models.IntegerField(default=0)
+    fallos_contribuciones = models.IntegerField(default=0)
+    
+    aciertos_cultura = models.IntegerField(default=0)
+    fallos_cultura = models.IntegerField(default=0)
+
 
     objects = MyUserManager()
 
