@@ -1,5 +1,3 @@
-
-
 from django.shortcuts import render,redirect
 from rest_framework import generics
 from django.urls import reverse_lazy
@@ -295,6 +293,7 @@ class UpdateContraseña(APIView):
             - Response: Objeto de respuesta HTTP con estado 200 si la actualización de la contraseña es exitosa.
             - Response: Objeto de respuesta HTTP con estado 404 si no se encuentra el usuario o no se encuentra el token asociado.
             - Response: Objeto de respuesta HTTP con estado 400 si la contraseña no cumple con los requisitos plateados"""
+    
     def post(self, request):
         username= request.data.get('username')
         password= request.data.get('password')
@@ -390,6 +389,8 @@ class LoginView(APIView):
             raise AuthenticationFailed('Las credenciales proporcionadas son inválidas.')
 
         return Response({'valid': False})
+    
+
 """
     Vista para registrar un nuevo usuario.
 
@@ -456,6 +457,27 @@ class RegisterUserView(APIView):
         except:
              return Response(status=status.HTTP_404_NOT_FOUND)
         
+    """
+    UpdateProgreso: 
+
+    Vista de la API para actualizar el progreso de un usuario en una categoría específica.
+
+    Esta clase define una vista de la API que permite actualizar el progreso de un usuario en una categoría específica.
+    El progreso se actualiza mediante una solicitud POST que incluye el nombre de usuario, la categoría y el identificador.
+
+    Métodos:
+    - post: Actualiza el progreso del usuario en la categoría especificada según el identificador.
+
+    Parámetros de la solicitud POST:
+    - nombre (str): Nombre de usuario del usuario.
+    - categoria (str): Categoría en la que se actualiza el progreso.
+    - identificador (str): Identificador de la categoría ('historia', 'cultura', 'contribuciones').
+
+    Respuestas:
+    - 202 ACCEPTED: Se devuelve si la categoría es 'None' o None.
+    - 200 OK: Se devuelve si el progreso se actualiza correctamente.
+    - 401 UNAUTHORIZED: Se devuelve si no se encuentra un token de autenticación válido para el usuario.
+    """
 
 class UpdateProgreso(APIView):
     
@@ -510,16 +532,56 @@ class UpdateProgreso(APIView):
             
         return Response(status=status.HTTP_401_UNAUTHORIZED)
 
+"""
+     Vista de la API para obtener una lista de preguntas de la categoría 'aportes'.
 
+    Esta clase define una vista de la API que permite obtener una lista de preguntas de la categoría 'aportes'.
+    Las preguntas se obtienen a través de una solicitud GET a esta vista.
+
+    Atributos:
+    - queryset: Consulta que obtiene las preguntas de la categoría 'aportes'.
+    - serializer_class: Clase de serializador utilizada para serializar las preguntas.
+    - filter_backends: Lista de filtros utilizados para ordenar las preguntas.
+
+    """
 class QuestionListAPIViewAportes(generics.ListAPIView):
     queryset = Question.objects.filter(categoria='aportes')
     serializer_class = QuestionSerializer
     filter_backends = [filters.OrderingFilter]
 
+    """
+    Vista de la API para obtener una lista de preguntas de la categoría 'cultura'.
+
+    Esta clase define una vista de la API que permite obtener una lista de preguntas de la categoría 'cultura'.
+    Las preguntas se obtienen a través de una solicitud GET a esta vista.
+
+    Atributos:
+    - queryset: Consulta que obtiene las preguntas de la categoría 'cultura'.
+    - serializer_class: Clase de serializador utilizada para serializar las preguntas.
+    - filter_backends: Lista de filtros utilizados para ordenar las preguntas.
+    """
+
 class QuestionListAPIViewCultura(generics.ListAPIView):
     queryset = Question.objects.filter(categoria='cultura')
     serializer_class = QuestionSerializer
     filter_backends = [filters.OrderingFilter]
+
+
+    """
+    Vista de la API para obtener una lista de preguntas de la categoría 'historia'.
+
+    Esta clase define una vista de la API que permite obtener una lista de preguntas de la categoría 'historia'.
+    Las preguntas se obtienen a través de una solicitud GET a esta vista.
+
+    Atributos:
+    - queryset: Consulta que obtiene las preguntas de la categoría 'historia'.
+    - serializer_class: Clase de serializador utilizada para serializar las preguntas.
+    - filter_backends: Lista de filtros utilizados para ordenar las preguntas.
+
+    Importante:
+    - Asegúrese de tener configurada la ruta adecuada en las URL para acceder a esta vista.
+    - El modelo Question y el serializador QuestionSerializer deben estar definidos correctamente en el proyecto.
+    """
 
 class QuestionListAPIViewHistoria(generics.ListAPIView):
     queryset = Question.objects.filter(categoria='historia')
@@ -527,7 +589,23 @@ class QuestionListAPIViewHistoria(generics.ListAPIView):
     filter_backends = [filters.OrderingFilter]
 
 
+"""
 
+    Vista de la API para obtener el progreso de un usuario en diferentes categorías.
+
+    Esta clase define una vista de la API que permite obtener el progreso de un usuario en diferentes categorías.
+    El progreso se obtiene mediante una solicitud POST que incluye el nombre de usuario.
+
+    Métodos:
+    - post: Obtiene el progreso del usuario en las categorías 'historia', 'cultura' y 'contribuciones'.
+
+    Parámetros de la solicitud POST:
+    - username (str): Nombre de usuario del usuario.
+
+    Respuesta:
+    - 200 OK: Devuelve un diccionario con el progreso del usuario en las categorías 'historia', 'cultura' y 'contribuciones'.
+
+"""
 class getProgreso(APIView):
     def post(self, request):
         # Obtener todos los usuarios de la base de datos
@@ -545,6 +623,22 @@ class getProgreso(APIView):
 
 #obtener y actualizar aciertos y fallos de el modulo historia 
 
+"""
+    Vista de la API para obtener los valores de aciertos y fallos en la categoría 'historia' de un usuario.
+
+    Esta clase define una vista de la API que permite obtener los valores de aciertos y fallos en la categoría 'historia' de un usuario.
+    Los valores se obtienen mediante una solicitud POST que incluye el nombre de usuario.
+
+    Métodos:
+    - post: Obtiene los valores de aciertos y fallos en la categoría 'historia' de un usuario.
+
+    Parámetros de la solicitud POST:
+    - username (str): Nombre de usuario del usuario.
+
+    Respuesta:
+    - 200 OK: Devuelve un diccionario con los valores de aciertos y fallos en la categoría 'historia'.
+"""
+
 class get_valores_historia(APIView):
     def post(self, request):
         username = request.data.get('username')  
@@ -556,6 +650,25 @@ class get_valores_historia(APIView):
         }
         return Response(data, status=status.HTTP_200_OK )
 
+"""
+    Vista de la API para actualizar los valores de aciertos y fallos en la categoría 'historia' de un usuario.
+
+    Esta clase define una vista de la API que permite actualizar los valores de aciertos y fallos en la categoría 'historia' de un usuario.
+    Los valores se actualizan mediante una solicitud POST que incluye el nombre de usuario, los nuevos valores de aciertos y fallos.
+
+    Métodos:
+    - post: Actualiza los valores de aciertos y fallos en la categoría 'historia' de un usuario.
+
+    Parámetros de la solicitud POST:
+    - username (str): Nombre de usuario del usuario.
+    - aciertos_historia (int): Nuevos valores de aciertos en la categoría 'historia'.
+    - fallos_historia (int): Nuevos valores de fallos en la categoría 'historia'.
+
+    Respuestas:
+    - 200 OK: Devuelve si los valores se actualizan correctamente.
+    - 401 UNAUTHORIZED: Devuelve si no se encuentra un token de autenticación válido para el usuario.
+
+"""
 class actualizar_valores_historia(APIView):
     def post(self, request):
         username = request.data.get('username')
@@ -576,6 +689,21 @@ class actualizar_valores_historia(APIView):
     
 
 #obtener y actualizar aciertos y fallos de el modulo cultura 
+"""
+    Vista de la API para obtener los valores de aciertos y fallos en la categoría 'cultura' de un usuario.
+
+    Esta clase define una vista de la API que permite obtener los valores de aciertos y fallos en la categoría 'cultura' de un usuario.
+    Los valores se obtienen mediante una solicitud POST que incluye el nombre de usuario.
+
+    Métodos:
+    - post: Obtiene los valores de aciertos y fallos en la categoría 'cultura' de un usuario.
+
+    Parámetros de la solicitud POST:
+    - username (str): Nombre de usuario del usuario.
+
+    Respuesta:
+    - 200 OK: Devuelve un diccionario con los valores de aciertos y fallos en la categoría 'cultura'.
+"""
 
 class get_valores_cultura(APIView):
     def post(self, request):
@@ -587,6 +715,26 @@ class get_valores_cultura(APIView):
                 'fallos_cultura': user.fallos_cultura
         }
         return Response(data, status=status.HTTP_200_OK )
+    
+"""
+    Vista de la API para actualizar los valores de aciertos y fallos en la categoría 'Cultura' de un usuario.
+
+    Esta clase define una vista de la API que permite actualizar los valores de aciertos y fallos en la categoría 'Cultura' de un usuario.
+    Los valores se actualizan mediante una solicitud POST que incluye el nombre de usuario, los nuevos valores de aciertos y fallos.
+
+    Métodos:
+    - post: Actualiza los valores de aciertos y fallos en la categoría 'Cultura' de un usuario.
+
+    Parámetros de la solicitud POST:
+    - username (str): Nombre de usuario del usuario.
+    - aciertos_cultura (int): Nuevos valores de aciertos en la categoría 'Cultura'.
+    - fallos_cultura (int): Nuevos valores de fallos en la categoría 'Cultura'.
+
+    Respuestas:
+    - 200 OK: Devuelve si los valores se actualizan correctamente.
+    - 401 UNAUTHORIZED: Devuelve si no se encuentra un token de autenticación válido para el usuario.
+
+"""
 
 class actualizar_valores_cultura(APIView):
     def post(self, request):
@@ -608,6 +756,22 @@ class actualizar_valores_cultura(APIView):
     
 #obtener y actualizar aciertos y fallos de el modulo aportes
 
+"""
+    Vista de la API para obtener los valores de aciertos y fallos en la categoría 'Contribuciones' de un usuario.
+
+    Esta clase define una vista de la API que permite obtener los valores de aciertos y fallos en la categoría 'Contribuciones' de un usuario.
+    Los valores se obtienen mediante una solicitud POST que incluye el nombre de usuario.
+
+    Métodos:
+    - post: Obtiene los valores de aciertos y fallos en la categoría 'Contribuciones' de un usuario.
+
+    Parámetros de la solicitud POST:
+    - username (str): Nombre de usuario del usuario.
+
+    Respuesta:
+    - 200 OK: Devuelve un diccionario con los valores de aciertos y fallos en la categoría 'Contribuciones'.
+"""
+
 class get_valores_contribuciones(APIView):
     def post(self, request):
         username = request.data.get('username')  
@@ -618,6 +782,26 @@ class get_valores_contribuciones(APIView):
                 'fallos_contribuciones': user.fallos_contribuciones
         }
         return Response(data, status=status.HTTP_200_OK )
+    
+"""
+    Vista de la API para actualizar los valores de aciertos y fallos en la categoría 'Contribuciones' de un usuario.
+
+    Esta clase define una vista de la API que permite actualizar los valores de aciertos y fallos en la categoría 'Contribuciones' de un usuario.
+    Los valores se actualizan mediante una solicitud POST que incluye el nombre de usuario, los nuevos valores de aciertos y fallos.
+
+    Métodos:
+    - post: Actualiza los valores de aciertos y fallos en la categoría 'Contribuciones' de un usuario.
+
+    Parámetros de la solicitud POST:
+    - username (str): Nombre de usuario del usuario.
+    - aciertos_contribuciones (int): Nuevos valores de aciertos en la categoría 'Contribuciones'.
+    - fallos_contribuciones (int): Nuevos valores de fallos en la categoría 'Contribuciones'.
+
+    Respuestas:
+    - 200 OK: Devuelve si los valores se actualizan correctamente.
+    - 401 UNAUTHORIZED: Devuelve si no se encuentra un token de autenticación válido para el usuario.
+
+"""
 
 class actualizar_valores_contribuciones(APIView):
     def post(self, request):

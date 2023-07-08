@@ -88,8 +88,17 @@ class MyUserManager(BaseUserManager):
     Atributos:
         - email (EmailField): Campo de correo electrónico del usuario. No puede ser nulo y debe ser único en la base de datos.
         - profile_picture (ImageField): Campo de imagen de perfil del usuario. Se almacena en la carpeta 'profile_pictures/'. Tiene un valor predeterminado de un ícono de imagen.
-        - total_quiz (IntegerField): Campo que representa el total de cuestionarios realizados por el usuario. Tiene un valor predeterminado de 0.
-        - total_categorias (CharField): Campo que representa las categorías totales a las que pertenece el usuario. Tiene un valor predeterminado vacío.
+        - progreso_historia (JSONField): Progreso del usuario en la categoría de historia, almacenado como JSON.
+        - progreso_contribuciones (JSONField): Progreso del usuario en la categoría de contribuciones, almacenado como JSON.
+        - progreso_cultura (JSONField): Progreso del usuario en la categoría de cultura, almacenado como JSON.
+        - total_quiz (IntegerField): Total de quizzes realizados por el usuario.
+        - total_categorias (CharField): Categorías totales a las que el usuario ha accedido o participado.
+        - aciertos_historia (IntegerField): Cantidad de aciertos del usuario en la categoría de historia.
+        - fallos_historia (IntegerField): Cantidad de fallos del usuario en la categoría de historia.
+        - aciertos_contribuciones (IntegerField): Cantidad de aciertos del usuario en la categoría de contribuciones.
+        - fallos_contribuciones (IntegerField): Cantidad de fallos del usuario en la categoría de contribuciones.
+        - aciertos_cultura (IntegerField): Cantidad de aciertos del usuario en la categoría de cultura.
+        - fallos_cultura (IntegerField): Cantidad de fallos del usuario en la categoría de cultura.
 
     Relaciones:
         None
@@ -203,6 +212,22 @@ class CustomUser(AbstractUser):
         super().save(*args, **kwargs)
 
 class Question(models.Model):
+
+    """
+    Modelo de base de datos para almacenar preguntas y opciones de respuesta.
+
+    Esta clase define un modelo de pregunta que se utiliza para almacenar preguntas y sus opciones de respuesta en una base de datos.
+    Cada instancia de esta clase representa una pregunta con su texto, categoría y tres opciones de respuesta, cada una de las cuales
+    se almacena como un campo JSON.
+
+    Atributos:
+    - pregunta (CharField): Texto de la pregunta.
+    - categoria (CharField): Categoría de la pregunta.
+    - opcion1 (JSONField): Opción de respuesta 1 almacenada como JSON.
+    - opcion2 (JSONField): Opción de respuesta 2 almacenada como JSON.
+    - opcion3 (JSONField): Opción de respuesta 3 almacenada como JSON.
+
+    """
 
     OPCION_DEFAULT = {
         'texto_opcion': "",

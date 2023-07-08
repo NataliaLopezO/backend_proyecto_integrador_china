@@ -9,7 +9,7 @@ from finding_china.views import RegisterUserView
 from rest_framework.authtoken.models import Token
 from .serializer import UsuarioSerializer
 
-""" PRUEBAS UNITARIAS DEL SEGUNDO SPRINT """
+""" PRUEBAS UNITARIAS DEL TERCER SPRINT """
 
 """
    Clase ThirdUserViewTestCase

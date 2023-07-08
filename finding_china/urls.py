@@ -24,7 +24,7 @@ router= routers.DefaultRouter()
 router.register('listaUser', UsuariosList, 'usuarioList1' )
 
 
-
+""" Rutas de la aplicación"""
 urlpatterns = [
     path('usuario/', include(router.urls)),
     path('docs/', include_docs_urls(title="modulo API")),

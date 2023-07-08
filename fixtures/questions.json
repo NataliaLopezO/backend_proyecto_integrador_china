@@ -1,3 +1,4 @@
+
 [
     {"model": "finding_china.Question", "pk": 1 , "fields":{"pregunta": "¿En qué siglo aproximadamente se inventó la brújula magnética?", "categoria": "aportes" , "opcion1": {"texto_opcion": "Siglo V a.C" , "es_respuesta_correcta": false}, "opcion2": { "texto_opcion": "Siglo II a.C" ,  "es_respuesta_correcta": true}, "opcion3": {"texto_opcion": "Siglo III a.C" , "es_respuesta_correcta": false}}},
     {"model": "finding_china.Question", "pk": 2 , "fields":{"pregunta": "¿Cuál era el material utilizado originalmente para detectar los campos magnéticos?", "categoria": "aportes", "opcion1": {"texto_opcion": "Hierro magnetizado", "es_respuesta_correcta": false}, "opcion2": {"texto_opcion": "Agua magnetizada" , "es_respuesta_correcta": false}, "opcion3": {"texto_opcion": "Piedra imán", "es_respuesta_correcta": true}}},
